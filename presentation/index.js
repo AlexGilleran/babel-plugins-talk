@@ -39,8 +39,8 @@ require("spectacle/lib/themes/default/index.css");
 const images = {
   markdown: require("../assets/markdown.png"),
   netscape: require("../assets/ns404.png"),
-  jsmin:  require("../assets/jsmin.png"),
-  gwt:  require("../assets/gwt.png"),
+  jsmin: require("../assets/jsmin.png"),
+  gwt: require("../assets/gwt.png"),
   coffeescript: require("../assets/coffeescript.png"),
   grunt: require("../assets/grunt.png"),
   jsx: require("../assets/jsx.png"),
@@ -53,7 +53,7 @@ preloader(images);
 const theme = createTheme({
   primary: "#311B92",
   secondary: "#FFFFFF",
-  tertiary: "#FF0000",
+  tertiary: "#5C6BC0",
   quartenary: "#FFEB3B"
 });
 
@@ -73,12 +73,12 @@ export default class Presentation extends React.Component {
             <Heading size={1} fit caps textColor="quartenary">
               With Babel Plugins
             </Heading>
-            <Text textSize="1.5em" margin="20px 0px 0px" bold textColor="quartenary">Alex Gilleran</Text>
+            <Text textSize="1.5em" style={{marginTop: '20px'}} bold textColor="quartenary">Alex Gilleran</Text>
           </Slide>
 
-          <Slide bgColor="black" notes="You can even put notes on your slide. How awesome is that?">
-            <Heading fit caps textColor="primary">
-              Transpilation:The Journey So Far
+          <Slide bgColor="#primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading fit caps textColor="secondary">
+              The Journey So Far
             </Heading>
           </Slide>
 
@@ -87,7 +87,8 @@ export default class Presentation extends React.Component {
             <Text textColor="quartenary">Douglas Crockford's JSMin introduces minification</Text>
           </Slide>
 
-          <Slide bgImage={images.gwt} bgDarken={0.9} notes="http://google-web-toolkit-doc-1-5.googlecode.com/files/diagram.png">
+          <Slide bgImage={images.gwt} bgDarken={0.9}
+                 notes="http://google-web-toolkit-doc-1-5.googlecode.com/files/diagram.png">
             <Heading textColor="secondary">2006</Heading>
             <Text textColor="quartenary">GWT pioneers compiling other languages to JS</Text>
 
@@ -114,14 +115,36 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide bgImage={images.now} bgDarken={0.9}>
-            <Heading textColor="secondary">Now</Heading>
-            <Text lineHeight={1.5} textColor="quartenary">Babel is ubiquitous.</Text>
-            <Text lineHeight={1.5} textColor="quartenary">Babel 6's plugin support is great.</Text>
-            <Text lineHeight={1.5} textColor="quartenary">The documentation is (finally) there.</Text>
+            <Heading lineHeight={1.5} textColor="secondary">Now</Heading>
+            <Appear>
+              <Text lineHeight={1.5} textColor="quartenary">Babel is ubiquitous.</Text>
+            </Appear>
+            <Appear>
+              <Text lineHeight={1.5} textColor="quartenary">Plugin support is great.</Text>
+            </Appear>
+            <Appear>
+              <Text lineHeight={1.5} textColor="quartenary">The documentation is (finally) there.</Text>
+            </Appear>
           </Slide>
 
-          <Slide bgImage={images.now} bgDarken={0.9}>
-            <Heading textColor="secondary" fit >So what can we do with it??</Heading>
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading fit caps textColor="secondary">
+              So what can we do with it?
+            </Heading>
+          </Slide>
+
+          <Slide>
+            <Heading textColor="secondary" margin="0 0 30px 0">Transpile ES6 (duh)</Heading>
+            <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/es6.txt')} lang="js"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px'}} source={require('raw!../examples/es6-converted.txt')} lang="js"/>
+          </Slide>
+
+          <Slide>
+            <Heading textColor="secondary">Transform JSX (duh)</Heading>
+          </Slide>
+
+          <Slide>
+            <Heading textColor="secondary">Transform JSX (duh)</Heading>
           </Slide>
         </Deck>
       </Spectacle>

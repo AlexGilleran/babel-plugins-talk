@@ -1,0 +1,5 @@
+const es6 = ([blah1, blah2]) => {
+  let value = 'not'
+
+  return `sticking with es5 is ${value} great!`;
+};
