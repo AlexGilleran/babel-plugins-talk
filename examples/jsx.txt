@@ -1,0 +1,5 @@
+<ul className="list-item">
+    { things.map(function(thing) {
+      return <li>{thing}</li>;
+    })}
+</ul>

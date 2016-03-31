@@ -1,0 +1,8 @@
+const PostFragment = graphql`
+  {
+    post {
+      title,
+      published_at
+    }
+  }
+`

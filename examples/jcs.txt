@@ -1,0 +1,7 @@
+<If condition={this.props.myCondition}>
+  <span>IfBlock</span>
+</If>
+
+<For each="item" of={this.props.items}>
+  <span key={item.id}>{item.title}</span>
+</For>

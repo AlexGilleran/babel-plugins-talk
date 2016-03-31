@@ -45,7 +45,9 @@ const images = {
   grunt: require("../assets/grunt.png"),
   jsx: require("../assets/jsx.png"),
   babel: require("../assets/babel.png"),
-  now: require("../assets/now.jpg")
+  now: require("../assets/now.jpg"),
+  visualizer: require("../assets/transform-render-visualizer.gif"),
+  hotReload: require("../assets/hot-reload.gif")
 };
 
 preloader(images);
@@ -115,7 +117,7 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide bgImage={images.now} bgDarken={0.9}>
-            <Heading lineHeight={1.5} textColor="secondary">Now</Heading>
+            <Heading lineHeight={1.5} caps textColor="secondary">Now</Heading>
             <Appear>
               <Text lineHeight={1.5} textColor="quartenary">Babel is ubiquitous.</Text>
             </Appear>
@@ -129,22 +131,53 @@ export default class Presentation extends React.Component {
 
           <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
             <Heading fit caps textColor="secondary">
-              So what can we do with it?
+              But what can we do with it?
             </Heading>
           </Slide>
 
           <Slide>
-            <Heading textColor="secondary" margin="0 0 30px 0">Transpile ES6 (duh)</Heading>
+            <Heading textColor="secondary" fit caps margin="0 0 15px 0">Transpile ES6 (duh)</Heading>
             <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/es6.txt')} lang="js"/>
             <CodePane style={{overflow: 'hidden', marginTop: '10px'}} source={require('raw!../examples/es6-converted.txt')} lang="js"/>
           </Slide>
 
           <Slide>
-            <Heading textColor="secondary">Transform JSX (duh)</Heading>
+            <Heading textColor="secondary" fit caps margin="0 0 15px 0">Transform JSX (more duh)</Heading>
+            <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/jsx.txt')} lang="jsx"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px'}} source={require('raw!../examples/jsx-converted.txt')} lang="js"/>
           </Slide>
 
           <Slide>
-            <Heading textColor="secondary">Transform JSX (duh)</Heading>
+            <Heading textColor="secondary" fit caps margin="0 0 15px 0">Turn GraphQL To Javascript</Heading>
+            <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/graphql.txt')} lang="js"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px', marginBottom: '10px'}} source={require('raw!../examples/graphql-converted.txt')} lang="js"/>
+            <Link textColor="quartenary" href="https://github.com/ooflorent/babel-plugin-graphql">github.com/ooflorent/babel-plugin-graphql</Link>
+          </Slide>
+
+          <Slide>
+            <Heading textColor="secondary" fit caps>Next-Gen Hot Reloading</Heading>
+            <Image src={images.hotReload} style={{marginTop: '10px'}} />
+            <Link textColor="quartenary" href="https://github.com/danmartinez101/babel-preset-react-hmre">github.com/danmartinez101/babel-preset-react-hmre</Link>
+          </Slide>
+
+          <Slide>
+            <Heading textColor="secondary" fit caps>Highlight All Changed Regions</Heading>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px'}} source={require('raw!../examples/transform.txt')} lang="json"/>
+            <Image src={images.visualizer} style={{marginTop: '20px', display: 'block'}} />
+            <Link textColor="quartenary" href="https://github.com/spredfast/react-transform-render-visualizer">github.com/spredfast/react-transform-render-visualizer</Link>
+          </Slide>
+
+          <Slide>
+            <Heading textColor="secondary" fit caps>Control Flow in JSX</Heading>
+            <CodePane style={{overflow: 'hidden', marginTop: '15px'}} source={require('raw!../examples/jcs.txt')} lang="js"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px', marginBottom: '10px'}} source={require('raw!../examples/jcs-converted.txt')} lang="js"/>
+            <Link textColor="quartenary" href="https://github.com/AlexGilleran/jsx-control-statements">github.com/AlexGilleran/jsx-control-statements</Link>
+          </Slide>
+
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading fit caps textColor="secondary">
+              So how does it work?
+            </Heading>
           </Slide>
         </Deck>
       </Spectacle>
