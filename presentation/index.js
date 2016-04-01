@@ -49,8 +49,6 @@ import Helmet from 'react-helmet';
 require("normalize.css");
 require("spectacle/lib/themes/default/index.css");
 
-throw new Error('blahface');
-
 const images = {
   markdown: require("../assets/markdown.png"),
   netscape: require("../assets/ns404.png"),
@@ -62,7 +60,9 @@ const images = {
   babel: require("../assets/babel.png"),
   now: require("../assets/now.jpg"),
   visualizer: require("../assets/transform-render-visualizer.gif"),
-  hotReload: require("../assets/hot-reload.gif")
+  hotReload: require("../assets/hot-reload.gif"),
+  onErrorResumeNext: require("../assets/on-error.png"),
+  esTree: require("../assets/estree.png")
 };
 
 preloader(images);
@@ -285,6 +285,64 @@ export default class Presentation extends React.Component {
               Let's make one!
             </Heading>
           </Slide>
+
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading caps textColor="secondary">Step 1</Heading>
+            <Text textColor="quartenary">
+              Pick a problem!
+            </Text>
+            <Appear>
+              <Image src={images.onErrorResumeNext}/>
+            </Appear>
+          </Slide>
+
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading caps textColor="secondary">Step 2</Heading>
+            <Text textColor="quartenary">
+              What Exactly Am I Changing?
+            </Text>
+            <div style={{marginTop: '20px'}}/>
+            <Appear>
+              <CodePane style={{overflow: 'hidden'}}
+                        source={require('raw!../examples/transform-before.txt')}
+                        lang="js"/>
+            </Appear>
+            <Appear><Text textColor="quartenary">
+              <i className="fa fa-arrow-circle-down" style={{margin: '10px'}}/>
+            </Text>
+            </Appear>
+            <Appear>
+              <CodePane style={{overflow: 'hidden'}}
+                        source={require('raw!../examples/transform-after.txt')}
+                        lang="js"/>
+            </Appear>
+          </Slide>
+
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading caps textColor="secondary">Step 3</Heading>
+            <Text textColor="quartenary">
+              To ESTree!
+            </Text>
+            <Image src={images.esTree}/>
+            <Link textColor="quartenary" href="https://github.com/estree/estree">github.com/estree/estree</Link>
+          </Slide>
+
+          <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require("!raw!../plugin.simple.js")}
+            ranges={[
+              { loc: [0, 1], title: "Babel Plugin" },
+              { loc: [1, 2]},
+              { loc: [3, 4]},
+              { loc: [3, 19]},
+              { loc: [4, 5]},
+              { loc: [5, 6]},
+              { loc: [6, 8]},
+              { loc: [8, 11]},
+              { loc: [12, 16]},
+              { loc: [21, 24]},
+            ]}/>
 
         </Deck>
       </Spectacle>

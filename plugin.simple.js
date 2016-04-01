@@ -6,11 +6,13 @@ module.exports = function (babel) {
       path.replaceWith(
         types.callExpression(
           types.memberExpression(
+            // console.error
             types.identifier('console'),
-            types.identifier('error')  // console.error
+            types.identifier('error')
           ),
           [ // (
-            path.node.argument // new Error('This is an error message'), or whatever else is in here.
+            path.node.argument
+            // new Error('msg')
           ] // )
         )
       );
