@@ -49,6 +49,7 @@ import Helmet from 'react-helmet';
 require("normalize.css");
 require("spectacle/lib/themes/default/index.css");
 
+throw new Error('blahface');
 
 const images = {
   markdown: require("../assets/markdown.png"),
