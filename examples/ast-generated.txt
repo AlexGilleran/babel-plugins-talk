@@ -1,0 +1,3 @@
+function byeReactSydney() {
+  return 'oh bye!';
+}

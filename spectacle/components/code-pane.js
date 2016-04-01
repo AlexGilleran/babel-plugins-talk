@@ -16,12 +16,16 @@ export default class CodePane extends Component {
       __html: format(code)
     };
   }
+
   componentDidMount() {
     return window.Prism && window.Prism.highlightAll();
   }
+
+
   render() {
     return (
-      <pre className={this.props.className} style={[this.context.styles.components.codePane.pre, getStyles.call(this), this.props.style]}>
+      <pre className={this.props.className}
+           style={[this.context.styles.components.codePane.pre, getStyles.call(this), this.props.style]} data-line={this.props.dataLine || ''}>
         <code
           className={`language-${this.props.lang}`}
           style={this.context.styles.components.codePane.code}

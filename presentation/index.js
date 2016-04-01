@@ -1,6 +1,15 @@
 // Import React
 import React from "react";
 
+import 'prismjs';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/plugins/line-highlight/prism-line-highlight';
+import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
+
+import 'font-awesome/css/font-awesome.css';
+require('../index.css');
+require('prismjs/themes/prism-tomorrow.css');
+
 // Import Spectacle Core tags
 import {
   Appear,
@@ -9,6 +18,7 @@ import {
   CodePane,
   Deck,
   Fill,
+  Fit,
   Heading,
   Image,
   Layout,
@@ -22,6 +32,8 @@ import {
   Text
 } from "../spectacle";
 
+import CodeSlide from 'spectacle-code-slide';
+
 // Import image preloader util
 import preloader from "spectacle/lib/utils/preloader";
 
@@ -30,6 +42,8 @@ import createTheme from "spectacle/lib/themes/default";
 
 // Import custom component
 import Interactive from "../assets/interactive";
+
+import Helmet from 'react-helmet';
 
 // Require CSS
 require("normalize.css");
@@ -138,39 +152,45 @@ export default class Presentation extends React.Component {
           <Slide>
             <Heading textColor="secondary" fit caps margin="0 0 15px 0">Transpile ES6 (duh)</Heading>
             <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/es6.txt')} lang="js"/>
-            <CodePane style={{overflow: 'hidden', marginTop: '10px'}} source={require('raw!../examples/es6-converted.txt')} lang="js"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px'}}
+                      source={require('raw!../examples/es6-converted.txt')} lang="js"/>
           </Slide>
 
           <Slide>
             <Heading textColor="secondary" fit caps margin="0 0 15px 0">Transform JSX (more duh)</Heading>
             <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/jsx.txt')} lang="jsx"/>
-            <CodePane style={{overflow: 'hidden', marginTop: '10px'}} source={require('raw!../examples/jsx-converted.txt')} lang="js"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px'}}
+                      source={require('raw!../examples/jsx-converted.txt')} lang="js"/>
           </Slide>
 
           <Slide>
             <Heading textColor="secondary" fit caps margin="0 0 15px 0">Turn GraphQL To Javascript</Heading>
             <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/graphql.txt')} lang="js"/>
-            <CodePane style={{overflow: 'hidden', marginTop: '10px', marginBottom: '10px'}} source={require('raw!../examples/graphql-converted.txt')} lang="js"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px', marginBottom: '10px'}}
+                      source={require('raw!../examples/graphql-converted.txt')} lang="js"/>
             <Link textColor="quartenary" href="https://github.com/ooflorent/babel-plugin-graphql">github.com/ooflorent/babel-plugin-graphql</Link>
           </Slide>
 
           <Slide>
             <Heading textColor="secondary" fit caps>Next-Gen Hot Reloading</Heading>
-            <Image src={images.hotReload} style={{marginTop: '10px'}} />
+            <Image src={images.hotReload} style={{marginTop: '10px'}}/>
             <Link textColor="quartenary" href="https://github.com/danmartinez101/babel-preset-react-hmre">github.com/danmartinez101/babel-preset-react-hmre</Link>
           </Slide>
 
           <Slide>
             <Heading textColor="secondary" fit caps>Highlight All Changed Regions</Heading>
-            <CodePane style={{overflow: 'hidden', marginTop: '10px'}} source={require('raw!../examples/transform.txt')} lang="json"/>
-            <Image src={images.visualizer} style={{marginTop: '20px', display: 'block'}} />
+            <CodePane style={{overflow: 'hidden', marginTop: '10px'}} source={require('raw!../examples/transform.txt')}
+                      lang="json"/>
+            <Image src={images.visualizer} style={{marginTop: '20px', display: 'block'}}/>
             <Link textColor="quartenary" href="https://github.com/spredfast/react-transform-render-visualizer">github.com/spredfast/react-transform-render-visualizer</Link>
           </Slide>
 
           <Slide>
             <Heading textColor="secondary" fit caps>Control Flow in JSX</Heading>
-            <CodePane style={{overflow: 'hidden', marginTop: '15px'}} source={require('raw!../examples/jcs.txt')} lang="js"/>
-            <CodePane style={{overflow: 'hidden', marginTop: '10px', marginBottom: '10px'}} source={require('raw!../examples/jcs-converted.txt')} lang="js"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '15px'}} source={require('raw!../examples/jcs.txt')}
+                      lang="js"/>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px', marginBottom: '10px'}}
+                      source={require('raw!../examples/jcs-converted.txt')} lang="js"/>
             <Link textColor="quartenary" href="https://github.com/AlexGilleran/jsx-control-statements">github.com/AlexGilleran/jsx-control-statements</Link>
           </Slide>
 
@@ -179,6 +199,92 @@ export default class Presentation extends React.Component {
               So how does it work?
             </Heading>
           </Slide>
+
+          <Slide bgColor="primary" notes="Cats">
+            <Layout>
+              <Fill style={{'align-self': 'center'}}>Parse to AST</Fill>
+              <Fit style={{'align-self': 'center'}}>
+                <Text textColor="quartenary">
+                  <i className="fa fa-arrow-circle-right" style={{margin: '10px'}}/>
+                </Text>
+              </Fit>
+              <Fill style={{'align-self': 'center'}}>Transform with Visitors</Fill>
+              <Fit style={{'align-self': 'center'}}>
+                <Text textColor="quartenary">
+                  <i className="fa fa-arrow-circle-right" style={{margin: '10px'}}/>
+                </Text>
+              </Fit>
+              <Fill style={{'align-self': 'center'}}>Generate</Fill>
+            </Layout>
+          </Slide>
+
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading textColor="secondary" fit caps margin="0 0 10px 0">Abstract Syntax Tree ?</Heading>
+            <Layout>
+              <Fill style={{'align-self': 'center'}}>
+                <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/ast-raw.txt')}
+                          lang="js"/>
+              </Fill>
+              <Fit style={{'align-self': 'center'}}>
+                <Text textColor="quartenary">
+                  <i className="fa fa-arrow-circle-right" style={{margin: '10px'}}/>
+                </Text>
+              </Fit>
+              <Fill style={{'align-self': 'center'}}>
+                <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/ast.txt')}
+                          lang="js"/>
+              </Fill>
+            </Layout>
+            <Link textColor="quartenary" href="http://astexplorer.net">astexplorer.net</Link>
+          </Slide>
+
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading textColor="secondary" caps margin="0 0 10px 0">Visitors</Heading>
+            <Layout>
+              <Fill style={{'align-self': 'center'}}>
+                <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/ast.txt')}
+                          lang="js" dataLine="5,17-18"/>
+              </Fill>
+              <Fit style={{'align-self': 'center'}}>
+                <Text textColor="quartenary">
+                  <i className="fa fa-arrow-circle-right" style={{margin: '10px'}}/>
+                </Text>
+              </Fit>
+              <Fill style={{'align-self': 'center'}}>
+                <CodePane style={{overflow: 'hidden'}}
+                          source={require('raw!../examples/ast-transform.txt')}
+                          lang="js" dataLine="5,17-18"/>
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide align="center center" bgColor="primary"
+                 notes="You can even put notes on your slide. How awesome is that?">
+            <Heading textColor="secondary" caps margin="0 0 10px 0">Generation</Heading>
+            <Layout>
+              <Fill style={{'align-self': 'center'}}>
+                <CodePane style={{overflow: 'hidden'}} source={require('raw!../examples/ast-transform.txt')}
+                          lang="js"/>
+              </Fill>
+              <Fit style={{'align-self': 'center'}}>
+                <Text textColor="quartenary">
+                  <i className="fa fa-arrow-circle-right" style={{margin: '10px'}}/>
+                </Text>
+              </Fit>
+              <Fill style={{'align-self': 'center'}}>
+                <CodePane style={{overflow: 'hidden'}}
+                          source={require('raw!../examples/ast-generated.txt')}
+                          lang="js"/>
+              </Fill>
+            </Layout>
+          </Slide>
+
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading fit caps textColor="secondary">
+              Let's make one!
+            </Heading>
+          </Slide>
+
         </Deck>
       </Spectacle>
     );

@@ -29,12 +29,7 @@ module.exports = {
       loader: "babel-loader",
     }, {
       test: /\.css$/,
-      loaders: ["style", "raw"],
-      include: __dirname
-    }, {
-      test: /\.svg$/,
-      loader: "url?limit=10000&mimetype=image/svg+xml",
-      include: path.join(__dirname, "assets")
+      loader: "style-loader!css-loader"
     }, {
       test: /\.png$/,
       loader: "url-loader?mimetype=image/png",
@@ -47,6 +42,6 @@ module.exports = {
       test: /\.jpg$/,
       loader: "url-loader?mimetype=image/jpg",
       include: path.join(__dirname, "assets")
-    }]
+    }, {test: /\.(woff|woff2|eot|ttf|svg)/, loader: 'url-loader?limit=100000'}]
   }
 };
