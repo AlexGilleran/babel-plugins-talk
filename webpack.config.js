@@ -42,6 +42,9 @@ module.exports = {
       test: /\.jpg$/,
       loader: "url-loader?mimetype=image/jpg",
       include: path.join(__dirname, "assets")
-    }, {test: /\.(woff|woff2|eot|ttf|svg)/, loader: 'url-loader?limit=100000'}]
+    }, {
+      test: /\.(woff|woff2|eot|ttf|svg)/,
+      loader: 'url-loader?limit=100000'}
+    ]
   }
 };

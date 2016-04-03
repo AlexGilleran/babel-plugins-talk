@@ -5,7 +5,8 @@ module.exports = function (babel) {
 
   var visitor = {
     JSXElement: function (path) {
-      var nodeName = path.node.openingElement.name ? path.node.openingElement.name.name : null;
+      var nodeName = path.node.openingElement.name ?
+          path.node.openingElement.name.name : null;
 
       if (nodeName === 'If') {
         path.replaceWith(transformIf(path.node, path.hub.file));
@@ -20,7 +21,14 @@ module.exports = function (babel) {
       return attr.name.name === 'condition';
     });
 
-    return t.ConditionalExpression(condition.value.expression, node.children, null);
+    return t.ConditionalExpression(condition.value.expression,
+        removeLiterals(node.children)[0], t.NullLiteral());
+  }
+
+  function removeLiterals(nodes) {
+    return _.filter(nodes, function (child) {
+      return child.type !== 'JSXText';
+    });
   }
 
   return {
