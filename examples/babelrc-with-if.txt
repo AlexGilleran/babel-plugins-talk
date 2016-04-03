@@ -1,0 +1,14 @@
+<If condition={!this.state.doorOpen}>
+  <img
+    style={{height: '200px', width: '200px'}}
+    src={images.door}
+    onClick={() => this.setState({doorOpen: true})}
+  />
+</If>
+<If condition={this.state.doorOpen}>
+  <img
+    style={{height: '200px', width: '200px'}}
+    src={images.opendoor}
+    onClick={() => this.setState({doorOpen: false})}
+  />
+</If>

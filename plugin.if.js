@@ -1,38 +1,48 @@
 var _ = require('lodash');
 
-module.exports = function (babel) {
+module.exports = function(babel) {
   var t = babel.types;
 
   var visitor = {
-    JSXElement: function (path) {
-      var nodeName = path.node.openingElement.name ?
-          path.node.openingElement.name.name : null;
+    JSXElement: function(path) {
+      var nodeName =
+        path.node.openingElement.name &&
+        path.node.openingElement.name.name;
 
       if (nodeName === 'If') {
-        path.replaceWith(transformIf(path.node, path.hub.file));
+        path.replaceWith(
+          transformIf(path.node)
+        );
       }
     }
   };
 
-  function transformIf(node, file) {
-    var attributes = node.openingElement.attributes;
+  function transformIf(node) {
+    var attributes =
+      node.openingElement.attributes;
 
-    var condition = _.find(attributes, function (attr) {
-      return attr.name.name === 'condition';
-    });
+    var condition = _.find(attributes,
+      function(attr) {
+        return attr.name.name === 'condition';
+      }
+    );
 
-    return t.ConditionalExpression(condition.value.expression,
-        removeLiterals(node.children)[0], t.NullLiteral());
+    return t.ConditionalExpression(
+      condition.value.expression,
+      removeLiterals(node.children)[0],
+      t.NullLiteral()
+    );
   }
 
   function removeLiterals(nodes) {
-    return _.filter(nodes, function (child) {
+    return _.filter(nodes, function(child) {
       return child.type !== 'JSXText';
     });
   }
 
   return {
-    inherits: require("babel-plugin-syntax-jsx"),
+    inherits:
+      require("babel-plugin-syntax-jsx"),
     visitor: visitor
   };
 };

@@ -1,0 +1,18 @@
+interface JSXElement <: Expression {
+  type: "JSXElement",
+  openingElement: JSXOpeningElement,
+  children: [ Literal | JSXExpressionContainer | JSXElement ],
+  closingElement: JSXClosingElement | null
+}
+
+interface JSXOpeningElement <: JSXBoundaryElement {
+    type: "JSXOpeningElement",
+    attributes: [ JSXAttribute | JSXSpreadAttribute ],
+    selfClosing: boolean;
+}
+
+interface JSXAttribute <: Node {
+    type: "JSXAttribute",
+    name: JSXIdentifier | JSXNamespacedName,
+    value: Literal | JSXExpressionContainer | JSXElement | null
+}

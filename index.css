@@ -43,3 +43,7 @@
 ul {
     list-style-position: outside !important;
 }
+
+a {
+    text-decoration: underline !important;
+}
