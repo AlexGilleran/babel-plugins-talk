@@ -32,7 +32,7 @@ import {
   Text
 } from "../spectacle";
 
-import CodeSlide from 'spectacle-code-slide';
+import CodeSlide from '../spectacle-code-slide/lib';
 
 // Import image preloader util
 import preloader from "spectacle/lib/utils/preloader";
@@ -62,7 +62,9 @@ const images = {
   visualizer: require("../assets/transform-render-visualizer.gif"),
   hotReload: require("../assets/hot-reload.gif"),
   onErrorResumeNext: require("../assets/on-error.png"),
-  esTree: require("../assets/estree.png")
+  esTree: require("../assets/estree.png"),
+  cats: require("../assets/cats.gif"),
+  deeper: require("../assets/deeper.jpg")
 };
 
 preloader(images);
@@ -75,6 +77,11 @@ const theme = createTheme({
 });
 
 export default class Presentation extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
   render() {
     return (
       <Spectacle theme={theme}>
@@ -303,18 +310,20 @@ export default class Presentation extends React.Component {
             </Text>
             <div style={{marginTop: '20px'}}/>
             <Appear>
-              <CodePane style={{overflow: 'hidden'}}
-                        source={require('raw!../examples/transform-before.txt')}
-                        lang="js"/>
+              <CodePane
+                textSize='0.55em' style={{overflow: 'hidden'}}
+                source={require('raw!../examples/transform-before.txt')}
+                lang="js"/>
             </Appear>
             <Appear><Text textColor="quartenary">
               <i className="fa fa-arrow-circle-down" style={{margin: '10px'}}/>
             </Text>
             </Appear>
             <Appear>
-              <CodePane style={{overflow: 'hidden'}}
-                        source={require('raw!../examples/transform-after.txt')}
-                        lang="js"/>
+              <CodePane
+                textSize='0.55em' style={{overflow: 'hidden'}}
+                source={require('raw!../examples/transform-after.txt')}
+                lang="js"/>
             </Appear>
           </Slide>
 
@@ -332,18 +341,105 @@ export default class Presentation extends React.Component {
             lang="js"
             code={require("!raw!../plugin.simple.js")}
             ranges={[
-              { loc: [0, 1], title: "Babel Plugin" },
-              { loc: [1, 2]},
+              { loc: [0, 1], title: 'Step 4', note: "Export a function that accepts babel" },
+              { loc: [1, 2], note: "Constructors for expressions"},
               { loc: [3, 4]},
-              { loc: [3, 19]},
-              { loc: [4, 5]},
-              { loc: [5, 6]},
+              { loc: [4, 5], note: "Each key is an expression that will be visited"},
+              { loc: [5, 6], note: "Allows you to change the AST"},
               { loc: [6, 8]},
               { loc: [8, 11]},
-              { loc: [12, 16]},
+              { loc: [12, 16], note: "Arguments passed to console.error()"},
               { loc: [21, 24]},
             ]}/>
 
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading caps textColor="secondary">Let's Take A Break</Heading>
+            <If condition={!this.state.showCat}>
+              <CodePane
+                textSize='0.55em' style={{overflow: 'hidden'}}
+                source={require('!raw!../examples/catslide.js')}
+                lang="js"/>
+              <button
+                onClick={require('../examples/catslide.js').bind(this)}
+                style={{background: 'none', border: '1px solid #FFEB3B', color: '#FFEB3B', marginTop: '10px'}}>
+                Click Here For a Cat
+              </button>
+            </If>
+            <If condition={this.state.showCat}>
+              <Image src={images.cats}/>
+            </If>
+          </Slide>
+
+          <Slide bgColor="primary" notes="You can even put notes on your slide. How awesome is that?">
+            <Heading caps textColor="secondary">React Transform</Heading>
+            <List>
+              <Appear><ListItem>By Dan Abramov</ListItem></Appear>
+              <Appear><ListItem>Allows you to easily create transforms that "wrap" components</ListItem></Appear>
+              <Appear><ListItem>Your transform receives a monkey-patchable ReactClass object, and a set of options
+                including
+                imports, variables, filename etc.</ListItem></Appear>
+              <Appear><ListItem>Experimental - intended to play around with ideas for a more stable, React-specific
+                technology</ListItem></Appear>
+            </List>
+            <Link textColor="quartenary" href="https://github.com/gaearon/babel-plugin-react-transform">github.com/gaearon/babel-plugin-react-transform</Link>
+          </Slide>
+
+          <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require("!raw!../examples/react-transform.js")}
+            ranges={[
+              { loc: [0, 1], title: 'Example (from the readme)', note: 'options for Babel data'},
+              { loc: [1, 2], note: 'ReactClass for transformation'},
+              { loc: [2, 5], note: 'Get the display name out of the Babel options'},
+              { loc: [6, 8], note: 'Grab the original componentDidUpdate function so we can wrap our own around it'},
+              { loc: [9, 19], note: 'Replace componentDidUpdate with a function that logs the update state, then calls the original'},
+              { loc: [20, 21], note: 'Return the modified ReactClass'}
+            ]}
+          />
+
+          <Slide bgImage={images.deeper} bgDarken={0.9}>
+            <Heading textColor="secondary" caps>Deeper into JSX</Heading>
+            <List textColor="quartenary">
+              <Appear><ListItem>
+                React Transform will cover a lot of React transformation cases, but won't modify JSX
+                itself
+              </ListItem></Appear>
+              <Appear><ListItem>
+                Fortunately you can modify JSX with the same mechanisms as regular Javascript.
+              </ListItem></Appear>
+            </List>
+          </Slide>
+
+          <Slide bgColor="primary">
+            <Heading textColor="secondary" fit caps>Let's make an If statement</Heading>
+            <Text textColor="quartenary" style={{textAlign: 'left'}}>Say we want to make this:</Text>
+            <CodePane style={{overflow: 'hidden', marginTop: '15px', marginBottom: '10px'}}
+                      source={require('!raw!../examples/if-jsx-guard.jsx')}
+                      lang="js"/>
+            <Text textColor="quartenary" style={{textAlign: 'left'}}>We could do this:</Text>
+            <CodePane style={{overflow: 'hidden', marginTop: '15px', marginBottom: '10px'}} source={require('!raw!../examples/naive-if.jsx')}
+                      lang="js"/>
+            <Text textColor="quartenary" style={{textAlign: 'left'}}>But it compiles to this:</Text>
+            <CodePane style={{overflow: 'hidden', marginTop: '15px', marginBottom: '10px'}}
+                      source={require('!raw!../examples/if-js-guard.js')}
+                      lang="js"/>
+
+
+          </Slide>
+            <Heading textColor="secondary" fit caps>Let's make an If statement</Heading>
+            <Text textColor="quartenary" style={{textAlign: 'left'}}>Which causes this:</Text>
+
+          <Slide>
+
+            <CodePane style={{overflow: 'hidden', marginTop: '15px'}} source={require('!raw!../examples/if-jsx.jsx')}
+                      lang="js"/>
+            <Text textColor="quartenary">
+              <i className="fa fa-arrow-circle-down" style={{margin: '10px'}}/>
+            </Text>
+            <CodePane style={{overflow: 'hidden', marginTop: '10px', marginBottom: '10px'}}
+                      source={require('!raw!../examples/if-js.js')} lang="js"/>
+          </Slide>
         </Deck>
       </Spectacle>
     );

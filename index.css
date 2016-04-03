@@ -39,3 +39,7 @@
 .line-highlight:after, .line-highlight:before {
     display: none;
 }
+
+ul {
+    list-style-position: outside !important;
+}

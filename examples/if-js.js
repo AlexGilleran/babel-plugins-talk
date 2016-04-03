@@ -1,0 +1,1 @@
+this.props.myCondition ? <span>IfBlock</span> : null;
