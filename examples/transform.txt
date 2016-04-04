@@ -1,5 +1,0 @@
-"react-transform": {
-    "transforms": [{
-        "transform": "react-transform-render-visualizer"
-    }]
-}

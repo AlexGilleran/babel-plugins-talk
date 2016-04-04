@@ -1,5 +1,0 @@
-this.props.myCondition ? <span>IfBlock</span> : null;
-
-this.props.items.map(function(item) {
-  <span key={item.id}>{item.title}</span>
-});
